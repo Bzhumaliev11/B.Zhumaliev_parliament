@@ -1,0 +1,55 @@
+/* ===== Ministers video gallery ===== */
+.min-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+.min-card {
+  width: 360px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.25s;
+  text-align: left;
+}
+.min-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.min-card h3 {
+  margin-bottom: 10px;
+}
+.player {
+  width: 100%;
+  height: 210px;
+  border: 0;
+  border-radius: 12px;
+  background: #000;
+}
+
+.video-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.vbtn {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.15);
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+}
+.vbtn:hover {
+  transform: translateY(-1px);
+}
+.vbtn.active {
+  background: rgba(255, 204, 213, 0.22);
+  border-color: rgba(255, 204, 213, 0.55);
+}

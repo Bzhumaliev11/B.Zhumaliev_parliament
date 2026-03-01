@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="kk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Парламент | Жобалар</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      body {
+        background: linear-gradient(135deg, #4b0f1a, #800020);
+        color: white;
+        overflow-x: hidden;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 60px;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 25px;
+        position: relative;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: #ffccd5;
+        left: 0;
+        bottom: -5px;
+        transition: 0.3s;
+      }
+      nav a:hover::after {
+        width: 100%;
+      }
+      .active {
+        font-weight: 700;
+      }
+      .content {
+        padding: 120px 20px 60px;
+        text-align: center;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      .card {
+        width: 260px;
+        padding: 22px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        transition: 0.25s;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.18);
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.4);
+      }
+      /* ===== Ministers video gallery ===== */
+      .min-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      .min-card {
+        width: 360px;
+        padding: 20px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        transition: 0.25s;
+        text-align: left;
+      }
+      .min-card:hover {
+        transform: translateY(-6px);
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .min-card h3 {
+        margin-bottom: 10px;
+      }
+      .player {
+        width: 100%;
+        height: 210px;
+        border: 0;
+        border-radius: 12px;
+        background: #000;
+      }
+
+      .video-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .vbtn {
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.15);
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 14px;
+      }
+      .vbtn:hover {
+        transform: translateY(-1px);
+      }
+      .vbtn.active {
+        background: rgba(255, 204, 213, 0.22);
+        border-color: rgba(255, 204, 213, 0.55);
+      }
+      .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.1);
+  padding: 25px 15px;
+  border-radius: 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  background: rgba(255,255,255,0.18);
+}
+
+.card img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid rgba(255,255,255,0.4);
+}
+.min-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* Телефон/планшетке адаптив */
+@media (max-width: 1000px){
+  .min-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px){
+  .min-grid{ grid-template-columns: 1fr; }
+}
+.min-card{
+  background: rgba(255,255,255,0.1);
+  padding: 18px;
+  border-radius: 16px;
+}
+
+.min-card .player{
+  width: 100%;
+  height: 210px;
+  border: 0;
+  border-radius: 12px;
+}
+/* ===== VIDEO SECTION ===== */
+.video-section{
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+.video-section h2{ font-size: 28px; margin-bottom: 10px; }
+.video-section p{ opacity: .9; margin-bottom: 18px; }
+
+.min-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 10px;
+}
+@media (max-width: 1000px){ .min-grid{ grid-template-columns: repeat(2, 1fr);} }
+@media (max-width: 600px){ .min-grid{ grid-template-columns: 1fr;} }
+
+.min-card{
+  text-align: left;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 18px;
+  border-radius: 18px;
+  transition: .25s;
+}
+.min-card:hover{ transform: translateY(-6px); background: rgba(255,255,255,0.16); }
+
+.min-card h3{ margin-bottom: 10px; }
+
+.player{
+  width: 100%;
+  height: 210px;
+  border: 0;
+  border-radius: 12px;
+  background: #000;
+}
+
+.video-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top: 12px;
+}
+.vbtn{
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.15);
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+  font-size: 14px;
+}
+.vbtn:hover{ transform: translateY(-1px); }
+.vbtn.active{
+  background: rgba(255,204,213,0.22);
+  border-color: rgba(255,204,213,0.55);
+}
+
+    </style>
+  </head>
+
+  <body>
+    <header>
+      
+      <nav>
+        <a href="index.html">Басты бет</a>
+        <a class="active" href="projects.html">Жобалар</a>
+        <a href="contact.html">Байланыс</a>
+      </nav>
+    </header>
+    <h3>Парламент мүшелері</h3>
+    <section class="content">
+     <section class="video-section" id="videos">
+  <h2>🎬 Министрлер видеолары</h2>
+  <p>Батырманы бассаң, сол карточканың видеосы ауысады.</p>
+
+  <div class="min-grid">
+
+    <!-- 1: Ақпарат -->
+    <div class="min-card">
+      <h3>📢 Ақпарат фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/uE1LqWP0jZM" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="uE1LqWP0jZM">Видео 1</button>
+        <button type="button" class="vbtn" data-video="JdPWlXjOSBA">Видео 2</button>
+        <button type="button" class="vbtn" data-video="X3iIQMDTILE">Видео 3</button>
+        <button type="button" class="vbtn" data-video="x9XeyX6rOrY">Видео 4</button>
+      </div>
+    </div>
+
+    <!-- 2: Өзін-өзі тану және бақыт -->
+    <div class="min-card">
+      <h3>🌟 Өзін-өзі тану және бақыт фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/aMLjqDjDG3w" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="aMLjqDjDG3w">Видео 1</button>
+        <button type="button" class="vbtn" data-video="NwouFGIslmI">Видео 2</button>
+        <button type="button" class="vbtn" data-video="9wjcvyzXl4U">Видео 3</button>
+      </div>
+    </div>
+
+    <!-- 3: Қамқорлық -->
+    <div class="min-card">
+      <h3>🤝 Қамқорлық фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/ve-VXzz8XfE" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="ve-VXzz8XfE">Видео 1</button>
+        <button type="button" class="vbtn" data-video="NwouFGIslmI">Видео 2</button>
+        <button type="button" class="vbtn" data-video="rZ4rrPmjIrw">Видео 3</button>
+      </div>
+    </div>
+
+    <!-- 4: Дебат -->
+    <div class="min-card">
+      <h3>🗣️ Дебат қозғалысының фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/ve-VXzz8XfE" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="ve-VXzz8XfE">Видео 1</button>
+      </div>
+    </div>
+
+   
+<!-- 5: Құқық және тәртіп -->
+<div class="min-card">
+  <h3>⚖️ Құқық және тәртіп фракциясы</h3>
+
+  <iframe
+    class="player"
+    src="https://www.youtube.com/embed/_hLAdQvVL_E"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+
+  <div class="video-links">
+    <button type="button" class="vbtn active" data-video="_hLAdQvVL_E">
+      Видео 1
+    </button>
+
+    <button type="button" class="vbtn" data-video="_hLAdQvVL_E">
+      Видео 2
+    </button>
+  </div>
+</div>
+    <!-- 6: Спорт -->
+    <div class="min-card">
+      <h3>🏃‍♀️ Спорт және салауатты өмір салты фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/hqE05dWHico" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="hqE05dWHico">Видео 1</button>
+      
+      </div>
+    </div>
+
+    <!-- 7: Мәдениет және өнер -->
+    <div class="min-card">
+      <h3>🎭 Мәдениет және өнер фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/l7p9ZYW5mlU" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="l7p9ZYW5mlU">Видео 1</button>
+       
+      </div>
+    </div>
+
+    <!-- 8: Білім және ғылым -->
+    <div class="min-card">
+      <h3>📚 Білім және ғылым фракциясы</h3>
+      <iframe class="player" src="https://www.youtube.com/embed/X3iIQMDTILE" allowfullscreen></iframe>
+
+      <div class="video-links">
+        <button type="button" class="vbtn active" data-video="X3iIQMDTILE">Видео 1</button>
+      </div>
+    </div>
+</section>
+      </div>
+      <h2 id="members" style="margin-top: 60px">Парламент мүшелері</h2>
+     
+      </div>
+
+      
+    </section>
+
+   
+    <!-- ===== Парламент мүшелері (HTML) ===== -->
+<div class="grid">
+
+  <div class="card">
+    <img src="president.jpg" alt="Президент">
+    <h3>👑 Мектеп Президенті</h3>
+    <p>Рахат Нұрахмет</p>
+  </div>
+
+  <div class="card">
+    <img src="vise.jpg" alt="Вице-президент">
+    <h3>🎓 Вице-президент</h3>
+    <p>Рахимбек Нұрсат</p>
+  </div>
+
+  <div class="card">
+    <img src="priemer.jpg" alt="Премьер-министр">
+    <h3>🏛️ Премьер-министр</h3>
+    <p>Жетібаева Назерке</p>
+  </div>
+
+  <div class="card">
+    <img src="ozin.jpg" alt="Өзін-өзі тану">
+    <h3>🌟 Өзін-өзі тану және бақыт фракциясы</h3>
+    <p>Темірхан Райымбек</p>
+  </div>
+
+  <div class="card">
+    <img src="ak (3).jpg" alt="Қамқорлық">
+    <h3>🤝 Қамқорлық фракциясы</h3>
+    <p>Нұркенқызы Аяулым</p>
+  </div>
+
+  <div class="card">
+    <img src="ak (2).jpg" alt="Дебат">
+    <h3>🗣️ Дебат қозғалысы фракциясы</h3>
+    <p>Бақытжанова Әсемай</p>
+  </div>
+
+  <div class="card">
+    <img src="kyk.jpg" alt="Құқық">
+    <h3>⚖️ Құқық және тәртіп фракциясы</h3>
+    <p>Отан Жансая</p>
+  </div>
+
+  <div class="card">
+    <img src="akparat.jpg" alt="Ақпарат">
+    <h3>📢 Ақпарат фракциясы</h3>
+    <p>Жайық Жанель</p>
+  </div>
+
+  <div class="card">
+    <img src="sport.jpg" alt="Спорт">
+    <h3>🏃 Спорт және салауатты өмір салты</h3>
+    <p>Жайық Жақсылық</p>
+  </div>
+
+  <div class="card">
+    <img src="ak (4).jpg" alt="Мәдениет">
+    <h3>🎭 Мәдениет және өнер фракциясы</h3>
+    <p>Махмут Байсейіт</p>
+  </div>
+
+  <div class="card">
+    <img src="ak (1).jpg" alt="Білім">
+    <h3>📚 Білім және ғылым фракциясы</h3>
+    <p>Ақмұрат Жәнерке</p>
+  </div>
+
+  <div class="card">
+    <img src="эко.jpg" alt="Экология">
+    <h3>🌿 Экология және еңбек фракциясы</h3>
+    <p>Рысбек Ясмина</p>
+  </div>
+
+</div>
+<footer>Б.Жұмалиев атындағы ЖББМ парламенті | Shetpe</footer>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".min-card").forEach((card) => {
+    const player = card.querySelector(".player");
+    const buttons = card.querySelectorAll(".vbtn");
+    if (!player || buttons.length === 0) return;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = (btn.getAttribute("data-video") || "").trim();
+
+        // placeholder болса, ескертеді
+        if (!/^[a-zA-Z0-9_-]{6,}$/.test(id)) {
+          alert("Video ID қате немесе бос: " + id);
+          return;
+        }
+
+        const newSrc = `https://www.youtube.com/embed/${id}?autoplay=1`;
+
+        player.src = "about:blank";
+        setTimeout(() => (player.src = newSrc), 30);
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".min-card").forEach((card) => {
+    const player = card.querySelector(".player");
+    const buttons = card.querySelectorAll(".vbtn");
+    if (!player || buttons.length === 0) return;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = (btn.getAttribute("data-video") || "").trim();
+
+        // Қате/placeholder ID ұстап қалады
+        if (!/^[a-zA-Z0-9_-]{6,}$/.test(id)) {
+          alert("Video ID қате немесе бос: " + id);
+          return;
+        }
+
+        const newSrc = `https://www.youtube.com/embed/${id}?autoplay=1`;
+
+        // force reload (кейде 1-ге қайта өткенде қажет)
+        player.src = "about:blank";
+        setTimeout(() => (player.src = newSrc), 30);
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  });
+});
+</script>
+
+<!-- ===== Статистика анимациясы (JS) ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const nums = document.querySelectorAll(".hs-num");
+  nums.forEach((num) => {
+    const target = +num.dataset.target;
+    const duration = 1200;
+    const start = performance.now();
+
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      num.textContent = Math.floor(progress * target);
+
+      if (progress < 1) requestAnimationFrame(tick);
+      else num.textContent = target;
+    }
+
+    requestAnimationFrame(tick);
+  });
+});
+</script>
+
+<!-- ===== Видеоны ауыстыру (JS) ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".min-card").forEach((card) => {
+    const player = card.querySelector(".player");
+    const buttons = card.querySelectorAll(".vbtn");
+    if (!player || buttons.length === 0) return;
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = (btn.dataset.video || "").trim();
+        if (!id) return;
+
+        const newSrc = `https://www.youtube.com/embed/${id}`;
+
+        // force reload кейде керек болады
+        if (player.src.includes(newSrc)) {
+          player.src = "about:blank";
+          setTimeout(() => (player.src = newSrc), 30);
+        } else {
+          player.src = newSrc;
+        }
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  });
+});
+</script>
+
+</body>
+</html>
